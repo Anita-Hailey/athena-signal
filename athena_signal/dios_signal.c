@@ -31,7 +31,7 @@ of the microphone array using in MVDR.
 
 const int array_frm_len = 128;
 
-int dios_ssp_v1(int argc, char **argv, int *fe_switch, size_t m, float *mic_coord, size_t n, int mic_num, int ref_num)
+int dios_ssp_v1(int argc, char **argv, int *fe_switch, size_t m, float *mic_coord, size_t n, int mic_num, int ref_num, float loc_phi)
 {
     void* ptr = NULL;
 	ptr = (void*)malloc(sizeof(objSSP_Param));
@@ -40,9 +40,11 @@ int dios_ssp_v1(int argc, char **argv, int *fe_switch, size_t m, float *mic_coor
     SSP_PARAM->NS_KEY = fe_switch[1];
     SSP_PARAM->AGC_KEY = fe_switch[2];
     SSP_PARAM->HPF_KEY = fe_switch[3];
-    SSP_PARAM->MVDR_KEY = fe_switch[4];
+    SSP_PARAM->BF_KEY = fe_switch[4];
+    SSP_PARAM->DOA_KEY = fe_switch[5];
     SSP_PARAM->mic_num = mic_num;
     SSP_PARAM->ref_num = ref_num;
+    SSP_PARAM->loc_phi = loc_phi;
 
     if (SSP_PARAM->AEC_KEY == 1)
     {
@@ -53,7 +55,7 @@ int dios_ssp_v1(int argc, char **argv, int *fe_switch, size_t m, float *mic_coor
         }
     }
 
-    if(SSP_PARAM->MVDR_KEY == 1)
+    if(SSP_PARAM->BF_KEY != 0 || SSP_PARAM->DOA_KEY == 1)
     {
         if (SSP_PARAM->mic_num <= 1)
         {

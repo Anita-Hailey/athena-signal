@@ -2681,6 +2681,7 @@ static swig_module_info swig_module = {swig_types, 4, 0, 0, 0, 0};
 #include "kernels/dios_ssp_share/dios_ssp_share_complex_defs.h"
 #include "kernels/dios_ssp_share/dios_ssp_share_rfft.h"
 #include "kernels/dios_ssp_share/dios_ssp_share_subband.h"
+#include "kernels/dios_ssp_share/dios_ssp_share_cinv.h"
 #include "kernels/dios_ssp_share/dios_ssp_share_noiselevel.h"
 #include "kernels/dios_ssp_share/dios_ssp_share_typedefs.h"
 #include "kernels/dios_ssp_aec/dios_ssp_aec_res.h"
@@ -2692,14 +2693,18 @@ static swig_module_info swig_module = {swig_types, 4, 0, 0, 0, 0};
 #include "kernels/dios_ssp_aec/dios_ssp_aec_erl_est.h"
 #include "kernels/dios_ssp_mvdr/dios_ssp_mvdr_header.h"
 #include "kernels/dios_ssp_mvdr/dios_ssp_mvdr_win.h"
-#include "kernels/dios_ssp_mvdr/dios_ssp_mvdr_cinv.h"
 #include "kernels/dios_ssp_mvdr/dios_ssp_mvdr_macros.h"
 #include "kernels/dios_ssp_mvdr/dios_ssp_mvdr_api.h"
+#include "kernels/dios_ssp_ns/dios_ssp_ns_macros.h"
 #include "kernels/dios_ssp_ns/dios_ssp_ns_api.h"
+#include "kernels/dios_ssp_doa/dios_ssp_doa_api.h"
+#include "kernels/dios_ssp_doa/dios_ssp_doa_macros.h"
+#include "kernels/dios_ssp_doa/dios_ssp_doa_win.h"
 #include "kernels/dios_ssp_hpf/dios_ssp_hpf_api.h"
+#include "kernels/dios_ssp_vad/dios_ssp_vad_macros.h"
+#include "kernels/dios_ssp_vad/dios_ssp_vad_energy.h"
 #include "kernels/dios_ssp_vad/dios_ssp_vad_counter.h"
 #include "kernels/dios_ssp_vad/dios_ssp_vad_api.h"
-#include "kernels/dios_ssp_vad/dios_ssp_vad_energy.h"
 #include "kernels/dios_ssp_agc/dios_ssp_agc_api.h"
 #include "kernels/dios_ssp_aec/dios_ssp_aec_tde/dios_ssp_aec_tde.h"
 #include "kernels/dios_ssp_aec/dios_ssp_aec_tde/dios_ssp_aec_tde_ring_buffer.h"
@@ -2708,6 +2713,19 @@ static swig_module_info swig_module = {swig_types, 4, 0, 0, 0, 0};
 #include "kernels/dios_ssp_return_defs.h"
 #include "kernels/dios_ssp_api.h"
 #include "dios_signal.h"
+#include "kernels/dios_ssp_gsc/dios_ssp_gsc_abm.h"
+#include "kernels/dios_ssp_gsc/dios_ssp_gsc_adaptctrl.h"
+#include "kernels/dios_ssp_gsc/dios_ssp_gsc_aic.h"
+#include "kernels/dios_ssp_gsc/dios_ssp_gsc_api.h"
+#include "kernels/dios_ssp_gsc/dios_ssp_gsc_beamformer.h"
+#include "kernels/dios_ssp_gsc/dios_ssp_gsc_beamsteering.h"
+#include "kernels/dios_ssp_gsc/dios_ssp_gsc_dsptools.h"
+#include "kernels/dios_ssp_gsc/dios_ssp_gsc_filtsumbeamformer.h"
+#include "kernels/dios_ssp_gsc/dios_ssp_gsc_firfilterdesign.h"
+#include "kernels/dios_ssp_gsc/dios_ssp_gsc_globaldefs.h"
+#include "kernels/dios_ssp_gsc/dios_ssp_gsc_micarray.h"
+#include "kernels/dios_ssp_gsc/dios_ssp_gsc_multigscbeamformer.h"
+#include "kernels/dios_ssp_gsc/dios_ssp_gsc_rmNPsdOsMs.h"
 
 
 #include <limits.h>
@@ -2995,10 +3013,11 @@ SWIGINTERN PyObject *_wrap_dios_ssp_v1(PyObject *SWIGUNUSEDPARM(self), PyObject 
   size_t arg6 ;
   int arg7 ;
   int arg8 ;
-  PyObject *swig_obj[5] ;
+  float arg9;
+  PyObject *swig_obj[6] ;
   int result;
   
-  if (!SWIG_Python_UnpackTuple(args, "dios_ssp_v1", 5, 5, swig_obj)) SWIG_fail;
+  if (!SWIG_Python_UnpackTuple(args, "dios_ssp_v1", 6, 6, swig_obj)) SWIG_fail;
   
   /* Check if is a list */
   if (PyList_Check(swig_obj[0])) {
@@ -3041,11 +3060,12 @@ SWIGINTERN PyObject *_wrap_dios_ssp_v1(PyObject *SWIGUNUSEDPARM(self), PyObject 
   
   
   arg7 = PyInt_AsLong(swig_obj[3]);
-  
-  
+
   arg8 = PyInt_AsLong(swig_obj[4]);
+
+  arg9 = PyFloat_AsDouble(swig_obj[5]);
   
-  result = (int)dios_ssp_v1(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8);
+  result = (int)dios_ssp_v1(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9);
   resultobj = SWIG_From_int((int)(result));
   
   free((char *) arg2);
